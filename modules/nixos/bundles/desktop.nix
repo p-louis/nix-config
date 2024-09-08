@@ -86,9 +86,9 @@
       neovim gamemode unzip wget zip mpv git zsh fzf zoxide fastfetch starship eza pass gnupg alacritty tmux nerdfonts discord darktable gimp
       pinentry-all 
       rustup gcc gnat
+      usbutils pciutils
     ];
 
-    nix.extraOptions = ''experimental-features = nix-command flakes'';
   };
 }
 # vim: ts=2 sts=2 sw=2 et
