@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 {
-    #myHomeManager = {
-    #    zsh.enable = true;
-    #};
+    myHomeManager = {
+        bundles.general.enable = true;
+    };
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
     home.username = "fuzzel";

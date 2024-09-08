@@ -12,6 +12,14 @@
     };
   };
 
+    gtk = {
+        enable = true;
+        theme = {
+            package = pkgs.gnome.gnome-themes-extra;
+            name = "Adwaita-dark";
+        };
+    };
+
   myHomeManager.zsh.enable = lib.mkDefault true;
     #myHomeManager.fish.enable = lib.mkDefault true;
     #myHomeManager.lf.enable = lib.mkDefault true;
