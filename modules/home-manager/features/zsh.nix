@@ -27,9 +27,13 @@ in {
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza --icons -a --group-directories-first";
       tree = "${pkgs.eza}/bin/eza --color=auto --tree";
-      cal = "cal -m";
       grep = "grep --color=auto";
       q = "exit";
+      v = "nvim";
+      vim = "nvim";
+      sv = "sudo nvim";
+      hms = "home-manager switch --flake ~/Documents/nix-config";
+      nos = "sudo nixos-rebuild switch --flake ~/Documents/nix-config";
       ":q" = "exit";
     };
   };

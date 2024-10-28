@@ -20,13 +20,14 @@ nixLib,
   myNixOs = {
     bundles.desktop.enable = true;
 
-    sddm.enable = true;
     nvidia.enable = true;
+    sddm.enable = true;
     plasma6.enable = true;
   };
 
   # Enable networking
   networking.hostName = "hades"; # Define your hostname.
+  networking.domain = "patricklouis.de";
   networking.networkmanager.enable = true;
 
 

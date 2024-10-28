@@ -53,6 +53,10 @@
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
+
+    systemd.user.services = {
+      ydotool.enable = true;
+    };
     # Enable sound with pipewire.
     security.rtkit.enable = true;
     services.pipewire = {
@@ -67,6 +71,8 @@
       #media-session.enable = true;
     };
 
+    services.mullvad-vpn.enable = true;
+
     services.pcscd.enable = true;
 
     # Install firefox.
@@ -80,13 +86,32 @@
       enableSSHSupport = true;
     };
 
+    programs.mtr.enable = true;
+
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
       neovim gamemode unzip wget zip mpv git zsh fzf zoxide fastfetch starship eza pass gnupg alacritty tmux nerdfonts discord darktable gimp
-      pinentry-all 
+      inkscape
+      kdeconnect
+      pinentry-all dmenu-wayland ydotool
       rustup gcc gnat
       usbutils pciutils
+      minicom
+      openssl
+      rar
+      nmap
+      nfs-utils
+      lutris
+      scanmem
+      libreoffice-qt
+      cryptsetup
+      ntfs3g
+      mullvad-vpn
+      bind
+      borgbackup
+      pyload-ng
+      wakelan
     ];
 
   };
