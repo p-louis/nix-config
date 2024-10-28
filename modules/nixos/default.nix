@@ -11,18 +11,17 @@ nixLib,
 
   # Taking all modules in ./features and adding enables to them
 in {
-  imports =
-    [
-      inputs.home-manager.nixosModules.home-manager
-      ./features/nvidia.nix
-      ./features/sddm.nix
-      ./features/plasma.nix
-      ./bundles/desktop.nix
-    ];
+  imports = [ 
+    ./features/nvidia.nix
+    ./features/libreoffice.nix
+    ./features/downloader.nix
+    ./features/plasma.nix
+    ./features/sddm.nix
 
-  #options.myNixOS = {
-  #  hyprland.enable = lib.mkEnableOption "enable hyprland";
-  #};
+    ./bundles/baseline.nix
+    ./bundles/desktop.nix
+    ./bundles/gaming.nix
+    ];
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];

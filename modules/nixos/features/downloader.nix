@@ -4,9 +4,9 @@
     myNixOs.downloader.enable = lib.mkEnableOption "enable Downloader-Setup";
   };
 
-  services.mullvad-vpn.enable = true;
-
   config = lib.mkIf config.myNixOs.downloader.enable {
+    services.mullvad-vpn.enable = true;
+
     environment.systemPackages = with pkgs; [
       mullvad-vpn 
       pyload-ng
