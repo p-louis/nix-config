@@ -18,18 +18,21 @@ nixLib,
     ];
 
   myNixOs = {
+    bundles.baseline.enable = true;
     bundles.desktop.enable = true;
+    bundles.gaming.enable = true;
 
     nvidia.enable = true;
     sddm.enable = true;
     plasma6.enable = true;
+    downloader.enable = true;
+    libreoffice.enable = true;
   };
 
   # Enable networking
   networking.hostName = "hades"; # Define your hostname.
   networking.domain = "patricklouis.de";
   networking.networkmanager.enable = true;
-
 
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -43,10 +46,6 @@ nixLib,
     ];
   };
 
-
-  programs.steam.enable = true;
-
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -54,7 +53,6 @@ nixLib,
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
 
 # vim: ts=2 sts=2 sw=2 et
