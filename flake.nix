@@ -27,10 +27,12 @@
 
         nixosConfigurations = {
           hades = mkSystem ./hosts/hades/configuration.nix;
+          uranos = mkSystem ./hosts/uranos/configuration.nix;
         };
 
         homeConfigurations = {
           "fuzzel@hades" = mkHome "x86_64-linux" ./hosts/hades/home.nix;
+          "fuzzel@uranos" = mkHome "x86_64-linux" ./hosts/uranos/home.nix;
         };
       };
 }
