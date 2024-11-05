@@ -17,7 +17,11 @@ in {
       ./features/nvidia.nix
       ./features/sddm.nix
       ./features/plasma.nix
+      ./features/downloader.nix
+      ./features/libreoffice.nix
       ./bundles/desktop.nix
+      ./bundles/baseline.nix
+      ./bundles/gaming.nix
     ];
 
   #options.myNixOS = {

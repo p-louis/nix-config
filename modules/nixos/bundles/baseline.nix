@@ -31,6 +31,7 @@
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
+    services.hardware.bolt.enable = true;
 
 
     systemd.user.services = {

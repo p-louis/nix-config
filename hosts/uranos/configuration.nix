@@ -15,10 +15,10 @@
     bundles.desktop.enable = false;
     bundles.gaming.enable = false;
 
-    nvidia.enable = true;
+    nvidia.enable = false;
     sddm.enable = true;
     plasma6.enable = true;
-    downloader.enable = true;
+    downloader.enable = false;
     libreoffice.enable = true;
   };
 
@@ -31,8 +31,15 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/41ee166d-f7bd-42ea-88f7-1eb181d49f27";
+    initrd = {
+      luks = { 
+        devices.cryptroot.device = "/dev/disk/by-uuid/41ee166d-f7bd-42ea-88f7-1eb181d49f27";
+        yubikeySupport = true;
+      };
+    };
   };
+
+  services.acpid.enable = true;
 
   # Enable networking
   networking.hostName = "uranos"; # Define your hostname.
@@ -57,7 +64,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
