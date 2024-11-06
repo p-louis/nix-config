@@ -8,10 +8,32 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest; # Maybe fix issues with shutting down system?
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+
+    loader = {
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      kernelModules = [ "i915" "dm_snapshot" ];
+      availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      luks = { 
+        fido2Support = true;
+        devices.cryptroot = {
+          device = "/dev/disk/by-uuid/41ee166d-f7bd-42ea-88f7-1eb181d49f27";
+          fido2.credential = "c696abc52e90b744640390f8efdb3f0e";
+        };
+      };
+    };
+    kernelParams = [ "i915.force_probe=7d55" ];
+  };
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9fa5f076-aebe-4251-af8f-968eaf41194c";
@@ -24,11 +46,6 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/77178524-64b1-4805-82cd-338a281efaf2";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot/efi" =
     { device = "/dev/disk/by-uuid/4D3B-1C6A";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
@@ -45,4 +62,8 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.graphics.enable = true;
+
+  services.acpid.enable = true;
 }

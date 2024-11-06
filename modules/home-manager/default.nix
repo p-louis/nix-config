@@ -4,9 +4,9 @@
   inputs,
   config,
   lib,
-  nixLib,
   ...
 }: let
+  nixLib = import ../../nixLib/default.nix {inherit inputs;};
   cfg = config.myHomeManager;
 
   # Taking all modules in ./features and adding enables to them

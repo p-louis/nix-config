@@ -1,10 +1,5 @@
 {pkgs, lib, config, ...}: 
 {
-  options = {
-    myNixOs.bundles.desktop.enable = lib.mkEnableOption "enable Baseline Desktop config";
-  };
-
-  config = lib.mkIf config.myNixOs.bundles.desktop.enable {
 
     hardware.graphics = {
       enable = true;
@@ -29,6 +24,5 @@
       inkscape
     ];
 
-  };
 }
 # vim: ts=2 sts=2 sw=2 et

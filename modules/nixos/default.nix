@@ -4,29 +4,40 @@ config,
 lib,
 inputs,
 outputs,
-nixLib,
 ...
 }: let
-  cfg = config.myNixOS;
+  nixLib = import ../../nixLib/default.nix {inherit inputs;};
+  cfg = config.myNixOs;
 
+  features =
+    nixLib.extendModules
+    (name: {
+      extraOptions = {
+        myNixOs.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
+      };
+
+      configExtension = config: (lib.mkIf cfg.${name}.enable config);
+    })
+    (nixLib.filesIn ./features);
+
+  # Taking all module bundles in ./bundles and adding bundle.enables to them
+  bundles =
+    nixLib.extendModules
+    (name: {
+      extraOptions = {
+        myNixOs.bundles.${name}.enable = lib.mkEnableOption "enable ${name} module bundle";
+      };
+
+      configExtension = config: (lib.mkIf cfg.bundles.${name}.enable config);
+    })
+    (nixLib.filesIn ./bundles);
   # Taking all modules in ./features and adding enables to them
 in {
   imports =
     [
-      inputs.home-manager.nixosModules.home-manager
-      ./features/nvidia.nix
-      ./features/sddm.nix
-      ./features/plasma.nix
-      ./features/downloader.nix
-      ./features/libreoffice.nix
-      ./bundles/desktop.nix
-      ./bundles/baseline.nix
-      ./bundles/gaming.nix
-    ];
-
-  #options.myNixOS = {
-  #  hyprland.enable = lib.mkEnableOption "enable hyprland";
-  #};
+    ]
+    ++ features
+    ++ bundles;
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];

@@ -4,14 +4,21 @@ outputs = inputs.self.outputs;
 in rec {
     pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
-    mkSystem = config:
+    mkSystem = config: sys: user: homeConfig:
         inputs.nixpkgs.lib.nixosSystem {
             specialArgs = {
                 inherit inputs outputs nixLib;
             };
+            system = sys;
             modules = [
                 outputs.nixosModules.default
                 config
+                inputs.home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.${user} = import homeConfig;
+                }
             ];
         };
 

@@ -24,7 +24,7 @@ nixLib,
 
     nvidia.enable = true;
     sddm.enable = true;
-    plasma6.enable = true;
+    plasma.enable = true;
     downloader.enable = true;
     libreoffice.enable = true;
   };
