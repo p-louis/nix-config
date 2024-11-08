@@ -23,42 +23,40 @@
 
   outputs = { self, nixpkgs, ... }@inputs:
     let 
-      home-manager = inputs.home-manager;
+      myConfig = {
+        userName = "fuzzel";
+        realName = "Patrick Louis";
+        workEmail = "patrick.louis@linked-planet.com";
+        personalEmail = "patrick.louis@mailbox.org";
+      };
+
+    mkSystem = user: configuration: sys: homeConfig:
+        inputs.nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs myConfig;
+          };
+          system = sys;
+          modules = [
+            ./modules/nixos/default.nix
+            configuration
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = {
+                  inherit inputs myConfig;
+                };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = ".backup";
+                users.${user} = import homeConfig;
+              };
+            }
+          ];
+        };
     in {
       nixosConfigurations = {
-        hades = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-          };
-          system = "x86_64-linux";
-          modules = [
-            ./modules/nixos/default.nix
-            ./hosts/hades/configuration.nix
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.fuzzel = import ./hosts/hades/home.nix;
-            }
-          ];
-        };
-        uranos = inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-          };
-          system = "x86_64-linux";
-          modules = [
-            ./modules/nixos/default.nix
-            ./hosts/uranos/configuration.nix
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = ".backup";
-              home-manager.users.fuzzel = import ./hosts/uranos/home.nix;
-            }
-          ];
-        };
+        hades = mkSystem myConfig.userName ./hosts/hades/configuration.nix "x86_64-linux" ./hosts/hades/home.nix;
+        uranos = mkSystem myConfig.userName ./hosts/uranos/configuration.nix "x86_64-linux" ./hosts/uranos/home.nix;
       };
     };
 }

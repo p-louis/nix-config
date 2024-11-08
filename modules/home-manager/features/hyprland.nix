@@ -19,7 +19,7 @@ lib,
           "$HOME/.local/bin/xdph_reset"
           "dunst -conf $XDG_CONFIG_HOME/bspwm/dunstrc"
           "/usr/lib/polkit-kde-authentication-agent-1"
-          "$XDG_CONFIG_HOME/eww/launch "
+          "$HOME/.config/eww/launch "
           "nm-applet"
         ];
       monitor = ",preferred,0x0,1";

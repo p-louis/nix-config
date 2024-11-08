@@ -41,6 +41,7 @@
           comp-lzo
           tls-client
           tls-version-min 1.2
+          auth-user-pass /home/fuzzel/vpn/zitis/credentials
           ca /home/fuzzel/vpn/zitis/iq-sirius-ca.pem
           cert /home/fuzzel/vpn/zitis/iq-sirius-cert.pem
           key /home/fuzzel/vpn/zitis/iq-sirius-key.pem

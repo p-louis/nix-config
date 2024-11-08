@@ -1,6 +1,5 @@
 { 
-config, 
-lib, 
+myConfig, 
 pkgs, 
 ... 
 }:
@@ -47,9 +46,9 @@ pkgs,
 
   programs.zsh.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.fuzzel = {
+  users.users.${myConfig.userName} = {
     isNormalUser = true;
-    description = "Patrick";
+    description = myConfig.realName;
     extraGroups = [ "networkmanager" "wheel" "audio" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -57,9 +56,9 @@ pkgs,
     ];
   };
 
-  home-manager.users.fuzzel = {
-    home.username = "fuzzel";
-    home.homeDirectory = "/home/fuzzel";
+  home-manager.users.${myConfig.userName} = {
+    home.username = myConfig.userName;
+    home.homeDirectory = "/home/${myConfig.userName}";
 
     home.stateVersion = "24.05"; # Please read the comment before changing.
     programs.zsh.enable = true;

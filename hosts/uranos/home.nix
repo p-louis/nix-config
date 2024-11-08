@@ -1,22 +1,23 @@
 { 
-inputs,
-config, 
 pkgs, 
+myConfig,
 ... 
 }:
 {
-    imports = 
-        [
-            ../../modules/home-manager/default.nix
-        ];
-    myHomeManager = {
-      bundles.general.enable = true;
-      zsh.enable = true;
-      hyprland.enable = true;
-      afew.enable = true;
-      notmuch.enable = true;
-      neomutt.enable = true;
-    };
+  imports = 
+    [
+      ../../modules/home-manager/default.nix
+    ];
+  myHomeManager = {
+    bundles.general.enable = true;
+    bundles.work.enable = true;
+
+    zsh.enable = true;
+    git.enable = true;
+    hyprland.enable = true;
+    rofi.enable = true;
+    newsboat.enable = true;
+  };
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "fuzzel";
@@ -34,13 +35,13 @@ pkgs,
     # '')
   ];
 
-    gtk = {
-        enable = true;
-        theme = {
-            package = pkgs.gnome-themes-extra;
-            name = "Adwaita-dark";
-        };
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita-dark";
     };
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -62,8 +63,8 @@ pkgs,
 
   accounts.email.accounts.work = {
     primary = true;
-    address = "patrick.louis@linked-planet.com";
-    realName = "Patrick Louis";
+    address = myConfig.workEmail;
+    realName = myConfig.realName;
     gpg = {
       key = "293E5DCA20BDB8526F3C2652F74F4CD5EDDDFBAB";
       signByDefault = true;

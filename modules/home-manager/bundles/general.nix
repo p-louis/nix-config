@@ -4,63 +4,65 @@ config,
 lib,
 ...
 }: {
-    nixpkgs = {
-        config = {
-            allowUnfree = true;
-            experimental-features = "nix-command flakes";
-        };
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      experimental-features = "nix-command flakes";
     };
+  };
 
 
-    # myHomeManager.zsh.enable = lib.mkDefault true;
-    #    myHomeManager.git.enable = lib.mkDefault true;
+  myHomeManager.zsh.enable = lib.mkDefault true;
+  myHomeManager.git.enable = lib.mkDefault true;
 
-    programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
-    programs.bat.enable = true;
+  programs.bat.enable = true;
 
-    home.packages = with pkgs; [
-        file
-        git
-        p7zip
-        unzip
-        zip
-        stow
-        imagemagick
-        killall
-        neovim
+  home.packages = with pkgs; [
+    file
+    git
+    p7zip
+    unzip
+    zip
+    stow
+    imagemagick
+    killall
+    neovim
 
-        fzf
-        btop
-        lf
-        eza
-        fd
-        zoxide
-        du-dust
-        ripgrep
-        fastfetch
+    fzf
+    btop
+    lf
+    eza
+    fd
+    zoxide
+    du-dust
+    ripgrep
+    fastfetch
 
-        ffmpeg
-        wget
+    ffmpeg
+    wget
 
-        yt-dlp
-        tree-sitter
+    yt-dlp
+    tree-sitter
 
-        nh
-        jq
-    ];
+    nh
+    jq
+    yq
+  ];
 
 
-# myHomeManager.impermanence.data.directories = [
-#   ".ssh"
-# ];
+  # myHomeManager.impermanence.data.directories = [
+  #   ".ssh"
+  # ];
 
-# myHomeManager.impermanence.cache.directories = [
-#   ".local/share/nvim"
-#   ".config/nvim"
-# ];
+  # myHomeManager.impermanence.cache.directories = [
+  #   ".local/share/nvim"
+  #   ".config/nvim"
+  # ];
 
-# myHomeManager.impermanence.cache.files = [
-#   ".zsh_history"
-# ];
+  # myHomeManager.impermanence.cache.files = [
+  #   ".zsh_history"
+  # ];
 }
+# vim: sw=2 ts=2 sts=2
